@@ -12,7 +12,7 @@ public class ClientAddon {
      */
     public static boolean playerExists(String uuid) {
         try {
-            ResultSet rs = Main.mySQL.query("SELECT * FROM PlayerCapes WHERE UUID= '" + uuid + "'");
+            ResultSet rs = ExampleMain.mySQL.query("SELECT * FROM PlayerCapes WHERE UUID= '" + uuid + "'");
             if (rs.next()) {
                 return (rs.getString("UUID") != null);
             }
@@ -28,7 +28,7 @@ public class ClientAddon {
      */
     public static void createPlayer(String uuid) {
         if (!playerExists(uuid)) {
-            Main.mySQL.update("INSERT INTO PlayerCapes (UUID, ACTIVE) VALUES ('" + uuid + "', 'false');");
+            ExampleMain.mySQL.update("INSERT INTO PlayerCapes (UUID, ACTIVE) VALUES ('" + uuid + "', 'false');");
         }
     }
 
@@ -39,7 +39,7 @@ public class ClientAddon {
      */
     public static void setCapeStatus(String uuid, Boolean status) {
         if (ClientAddon.playerExists(uuid)) {
-            Main.mySQL.update("UPDATE PlayerCapes SET KILLS= '" + status + "' WHERE UUID= '" + uuid + "';");
+            ExampleMain.mySQL.update("UPDATE PlayerCapes SET KILLS= '" + status + "' WHERE UUID= '" + uuid + "';");
         } else {
             ClientAddon.createPlayer(uuid);
             setCapeStatus(uuid, status);
@@ -55,7 +55,7 @@ public class ClientAddon {
         boolean status;
         if (ClientAddon.playerExists(uuid)) {
             try {
-                ResultSet rs = Main.mySQL.query("SELECT * FROM PlayerCapes WHERE UUID= '" + uuid + "'");
+                ResultSet rs = ExampleMain.mySQL.query("SELECT * FROM PlayerCapes WHERE UUID= '" + uuid + "'");
                 status = rs.getBoolean("ACTIVE");
             } catch (SQLException exception) {
                 System.out.println("[ERROR] An unhandled error occured while getting player Cape status.");
