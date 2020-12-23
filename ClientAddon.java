@@ -39,7 +39,7 @@ public class ClientAddon {
      */
     public static void setCapeStatus(String uuid, Boolean status) {
         if (ClientAddon.playerExists(uuid)) {
-            ExampleMain.mySQL.update("UPDATE PlayerCapes SET KILLS= '" + status + "' WHERE UUID= '" + uuid + "';");
+            ExampleMain.mySQL.update("UPDATE PlayerCapes SET ACTIVE= '" + status + "' WHERE UUID= '" + uuid + "';");
         } else {
             ClientAddon.createPlayer(uuid);
             setCapeStatus(uuid, status);
